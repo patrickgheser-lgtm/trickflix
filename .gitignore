@@ -1,0 +1,21 @@
+# Questo repo contiene SOLO il codice pubblicato come aggiornamento.
+# Rete di sicurezza: se per sbaglio finisce qui qualcosa di personale, git lo ignora.
+venv/
+Download/
+python-portable/
+.chrome_profile/
+__pycache__/
+.backup/
+dati.json
+posizioni.json
+preferenze.json
+vai.json
+azione.json
+libreria.json
+app_log.txt
+.deps_ok
+aggiornamento_cache.json
+domini_cache.json
+dominio_*_cache.json
+.DS_Store
+__MACOSX/

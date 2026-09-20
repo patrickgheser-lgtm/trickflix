@@ -1,0 +1,4 @@
+# TrickFlix si aggiorna verificando lo sha256 di ogni file: quello che GitHub serve
+# deve essere IDENTICO byte per byte a quello pubblicato. Qualsiasi conversione di
+# fine riga farebbe fallire ogni verifica. Quindi: nessuna conversione, mai.
+* -text

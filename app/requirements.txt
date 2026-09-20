@@ -1,0 +1,14 @@
+# TrickFlix - dipendenze (leggere)
+# Flusso via API dirette (StreamingCommunity/AnimeUnity) + player Netflix su hls.js.
+streamlit
+requests
+# vixcloud (backend m3u8) è dietro Cloudflare "managed challenge": curl_cffi impersona
+# il fingerprint TLS di Chrome reale e passa la sfida SENZA aprire un browser.
+curl_cffi
+# Download dei video (decifratura segmenti AES-128 dell'm3u8 vixcloud).
+pycryptodome
+# ffmpeg "portatile" via pip: bundle del binario per Win/Mac/Linux
+# (per unire audio+video). Niente installazione di sistema, niente PATH.
+imageio-ffmpeg
+# Casting su Chromecast/Google TV (dal backend Python: l'iframe opaco non può usare il Cast SDK JS).
+pychromecast

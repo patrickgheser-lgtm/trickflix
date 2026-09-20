@@ -1,0 +1,16 @@
+[browser]
+gatherUsageStats = false
+
+[runner]
+fastReruns = true
+
+[logger]
+level = "info"
+
+# Tema scuro stile Netflix
+[theme]
+base = "dark"
+primaryColor = "#e50914"
+backgroundColor = "#141414"
+secondaryBackgroundColor = "#1f1f1f"
+textColor = "#ffffff"

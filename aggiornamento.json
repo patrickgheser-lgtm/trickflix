@@ -1,0 +1,107 @@
+{
+ "versione": "3.9.0",
+ "data": "2026-09-21",
+ "note": [
+  "Episodi, prossimo episodio, download e cast dentro al player",
+  "Seconda sorgente automatica per film e serie (VixSrc)",
+  "L'app ora si aggiorna da sola"
+ ],
+ "file": {
+  "TrickFlix.bat": {
+   "sha256": "f6321eb86b3560c7918d92c05d9a531e51e44da9ae6feb268cfadfd9fceba526",
+   "dim": 5248
+  },
+  "TrickFlix.command": {
+   "sha256": "e5817bc6e686b6b61fbea2dddf1b66588ffed93b8fac34849a4defaf7d773ebf",
+   "dim": 5510
+  },
+  "crea_app_macos.command": {
+   "sha256": "ecd204b068e0ddcb8936398cfdab059e23902de57f79c4135b3dc23f22599699",
+   "dim": 4280
+  },
+  "app/aggiornamenti.py": {
+   "sha256": "5c815bea0f4b1257342dabf3267c32ef6621bc13ab6ed7d13b89ecdcd10896e3",
+   "dim": 15628
+  },
+  "app/anilist.py": {
+   "sha256": "33b9ac0ee52e848a92bbe60c83d1ae51417287c546d1a4c1918f7f56ddc706c9",
+   "dim": 3408
+  },
+  "app/animeunity.py": {
+   "sha256": "e1a23fdd446bf6421295f7f41c081a8e7fb9d8882f59fc7c14e3f923965ec6ad",
+   "dim": 16576
+  },
+  "app/app.py": {
+   "sha256": "182ac747cc2a56b8c03bd488278cfff4d29bc142bbada5c52a778db5c7fead7b",
+   "dim": 107031
+  },
+  "app/bridge.py": {
+   "sha256": "2772a8262baf9e4c45757148c409968d0e20e6743ee7aa8d42eba59d5b23c55d",
+   "dim": 7358
+  },
+  "app/browser.py": {
+   "sha256": "85c82e2050078d8f319e037f5aa2bfb234b513323145eae2bdd2bc17969fed00",
+   "dim": 2026
+  },
+  "app/casting.py": {
+   "sha256": "4ffd61699950f957955e03f36635d5b886c8a87d9f87aeefc304f5f0133271a2",
+   "dim": 4548
+  },
+  "app/download_manager.py": {
+   "sha256": "3aa9fa79b546c7bbcde2fc56df03948f0b64a2dce6718d00a999de6cf8cea2aa",
+   "dim": 11025
+  },
+  "app/downloader.py": {
+   "sha256": "3493ec1b4bd005e8d9c3c0dc6bb91969538485af8f9f8aa5c107cb84cf8a5a00",
+   "dim": 15899
+  },
+  "app/launcher.py": {
+   "sha256": "05b0714ccfb7c7e9e4ded55fb751d55c078623787db7a0275e393d98ff068740",
+   "dim": 6094
+  },
+  "app/risolutore_siti.py": {
+   "sha256": "c5e93228c8c74e5197460f92c352e085aeab54e78de35c08d5fc771164276110",
+   "dim": 4299
+  },
+  "app/storage.py": {
+   "sha256": "79d875a0f3d937924d48d001998d658db37c838228472cd1f7ea49144d7cc5bd",
+   "dim": 7636
+  },
+  "app/streamingcommunity.py": {
+   "sha256": "b1da1d82acf688e0fdd6ed034cef74a01719a117033d05d080a803e680b6449a",
+   "dim": 18238
+  },
+  "app/versione.py": {
+   "sha256": "2c834a46c7ba53aadec7e5595f7870857de3fb987f037b95d9db20c9fcfaab9f",
+   "dim": 376
+  },
+  "app/vixcloud.py": {
+   "sha256": "2b285dd2a22157dcec81e6078b3eb390a8cce6d5d713f6e68509abb658589468",
+   "dim": 2805
+  },
+  "app/vixsrc.py": {
+   "sha256": "f14db665bbb10f8826d3bc0d49fadf24090a64fd213a858129605c6a4f9ed78f",
+   "dim": 9492
+  },
+  "app/requirements.txt": {
+   "sha256": "46b7aff28d9431a56bd599f933d1a7ffa34e04a34f811ca0c5bbdfb500f490db",
+   "dim": 671
+  },
+  "app/GUIDA.md": {
+   "sha256": "10c3105bcc401fec337a8e113cfefcc14b137fd176988488617a02b81b00694f",
+   "dim": 10019
+  },
+  "app/_python_portatile.ps1": {
+   "sha256": "f1e133fbde3383800c6dc627753c2ac4d2cc0eed0d53aff8a716744e0df077d4",
+   "dim": 2784
+  },
+  "app/home_component/index.html": {
+   "sha256": "2ad5ee1edf8975a9c7d149dae9324877a550590a5158c3f16cc88cb86efed090",
+   "dim": 5336
+  },
+  "app/.streamlit/config.toml": {
+   "sha256": "21721352dbc7d8705206e524c82c855f69a6fbaa915330c021bb765cc96bf817",
+   "dim": 250
+  }
+ }
+}

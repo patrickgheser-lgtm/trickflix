@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><style>
+ *{box-sizing:border-box;margin:0;padding:0}
+ html,body{background:transparent;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;overflow:hidden}
+ .hero{position:relative;height:330px;border-radius:8px;overflow:hidden;margin-bottom:6px;background:#222}
+ .hero>img{width:100%;height:100%;object-fit:cover;object-position:center 18%}
+ .hero-grad{position:absolute;inset:0;background:linear-gradient(to right,rgba(20,20,20,.92),rgba(20,20,20,.2) 55%,transparent),linear-gradient(to top,#141414,transparent 55%)}
+ .hero-info{position:absolute;left:30px;bottom:28px;max-width:58%}
+ .hero-title{font-size:33px;font-weight:800;text-shadow:0 2px 10px #000;margin-bottom:12px;line-height:1.1}
+ .hero-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;border:none;padding:9px 24px;border-radius:5px;font-size:16px;font-weight:700;cursor:pointer}
+ .hero-btn:hover{background:#dcdcdc}
+ .row{margin:12px 0}
+ .row.continua{margin-bottom:22px;border-bottom:1px solid #262626;padding-bottom:6px}
+ .row-label{font-size:17px;font-weight:700;margin:0 0 4px 2px}
+ .scroller{display:flex;gap:7px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;padding:8px 2px 12px}
+ .scroller::-webkit-scrollbar{height:8px}
+ .scroller::-webkit-scrollbar-thumb{background:#555;border-radius:4px}
+ .card{position:relative;flex:0 0 140px;min-width:0;scroll-snap-align:start;cursor:pointer;transition:transform .18s ease}
+ .card:hover{transform:scale(1.05);z-index:3}
+ .thumb{position:relative;width:140px;height:208px;border-radius:6px;overflow:hidden;background:#181818;box-shadow:0 2px 8px rgba(0,0,0,.45)}
+ .card:hover .thumb{box-shadow:0 10px 26px rgba(0,0,0,.7)}
+ .thumb>img{width:140px;height:208px;object-fit:cover;display:block}
+ .thumb .tp{position:absolute;top:5px;right:6px;font-size:14px;text-shadow:0 1px 3px #000}
+ .badge{position:absolute;top:5px;left:6px;background:#e50914;color:#fff;font-size:12px;font-weight:800;padding:2px 7px;border-radius:3px}
+ .prog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(170,170,170,.4)}
+ .prog>i{display:block;height:100%;background:#e50914}
+ .cap{padding:5px 2px 0}
+ .cap .nm{font-size:12.5px;font-weight:600;color:#ececec;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .cap .meta{font-size:11px;color:#8a8a8a;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ /* in ricerca: nome COMPLETO che va a capo (max 3 righe) invece dei tre puntini */
+ .wraptitles .cap .nm{white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+ .card.loading{opacity:.45;pointer-events:none}
+ .card.loading .thumb::after{content:'Apertura…';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:rgba(0,0,0,.55)}
+</style></head>
+<body><div id="app"></div>
+<script>
+(function(){
+  function send(type, extra){
+    var msg={isStreamlitMessage:true, type:type};
+    if(extra){ for(var k in extra){ msg[k]=extra[k]; } }
+    window.parent.postMessage(msg, "*");
+  }
+  function esc(s){ s=s||''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function emoji(t){ return t==='movie'?'🎬':(t==='anime'?'🌸':'📺'); }
+  window.pick=function(uid, el){ if(el){ el.classList.add('loading'); } send("streamlit:setComponentValue", {value: uid+"|"+Date.now(), dataType:"json"}); };
+  function card(it){
+    var b=it.badge?'<div class="badge">'+esc(it.badge)+'</div>':'';
+    var img=it.img?'<img loading="lazy" src="'+it.img+'" onerror="this.style.display=\'none\'">':'';
+    var prog=(it.progress&&it.progress>0.01)?'<div class="prog"><i style="width:'+Math.round(it.progress*100)+'%"></i></div>':'';
+    var meta=it.meta?'<div class="meta">'+esc(it.meta)+'</div>':'';
+    return '<div class="card" onclick="pick(\''+it.uid+'\',this)"><div class="thumb">'+b+img+
+           '<div class="tp">'+emoji(it.type)+'</div>'+prog+'</div>'+
+           '<div class="cap"><div class="nm">'+esc(it.name)+'</div>'+meta+'</div></div>';
+  }
+  function render(rows, hero, wrap){
+    var app=document.getElementById('app');
+    app.className = wrap ? 'wraptitles' : '';
+    var h='';
+    if(hero && hero.uid){
+      h+='<div class="hero">'+(hero.background?'<img src="'+hero.background+'" onerror="this.style.display=\'none\'">':'')+
+         '<div class="hero-grad"></div><div class="hero-info"><div class="hero-title">'+esc(hero.name)+'</div>'+
+         '<button class="hero-btn" onclick="pick(\''+hero.uid+'\',null)">▶ Riproduci</button></div></div>';
+    }
+    (rows||[]).forEach(function(r){
+      h+='<div class="row'+(r.continua?' continua':'')+'"><div class="row-label">'+esc(r.label)+'</div><div class="scroller">';
+      (r.items||[]).forEach(function(it){ h+=card(it); });
+      h+='</div></div>';
+    });
+    app.innerHTML=h;
+    send("streamlit:setFrameHeight", {height: Math.ceil(document.documentElement.scrollHeight)});
+  }
+  window.addEventListener("message", function(e){
+    if(!e.data || e.data.type!=="streamlit:render"){ return; }
+    var a=e.data.args||{};
+    render(a.rows||[], a.hero||null, a.wrap);
+  });
+  send("streamlit:componentReady", {apiVersion:1});
+})();
+</script></body></html>
