@@ -42,6 +42,28 @@ def scarica_pagina(url, referer=None, timeout=20):
     return r.text
 
 
+def durata(master_url, referer=None, timeout=20):
+    """Durata REALE del video in secondi, dal flusso stesso. None se non si riesce.
+
+    Il master playlist elenca solo le varianti, non contiene la durata: serve scaricare
+    una delle media playlist e sommare gli #EXTINF (la lunghezza di ogni segmento).
+    Costa una richiesta in piu' ma e' l'unico dato affidabile - i minuti dichiarati dai
+    siti sono spesso sbagliati di parecchio.
+    """
+    try:
+        master = scarica_pagina(master_url, referer=referer, timeout=timeout)
+        righe = [r.strip() for r in master.splitlines() if r.strip().startswith("http")]
+        if not righe:
+            return None
+        # la traccia video e' la piu' sicura: quelle audio a volte sono piu' corte
+        variante = next((r for r in righe if "type=video" in r), righe[0])
+        media = scarica_pagina(variante, referer=referer, timeout=timeout)
+        totale = sum(float(x) for x in re.findall(r"#EXTINF:([\d.]+)", media))
+        return totale or None
+    except Exception:
+        return None
+
+
 def estrai_m3u8(embed_url, session=None, referer=None):
     """Ritorna l'URL m3u8 master (con token/expires) dall'embed vixcloud, o None."""
     page = scarica_pagina(embed_url, referer=referer)

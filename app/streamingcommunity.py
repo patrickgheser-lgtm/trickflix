@@ -17,6 +17,8 @@ import time
 import html as _html
 import requests
 
+import threading
+import vixcloud
 from vixcloud import estrai_m3u8, UA
 
 # Startpage = risultati Google senza blocco anti-bot (i motori diretti danno 202/vuoto). Poi
@@ -413,6 +415,87 @@ def episodi(title_id, slug, stagione):
         out.append({"id": e["id"], "number": e.get("number"), "name": e.get("name"),
                     "plot": e.get("plot"), "duration": e.get("duration"), "image": img})
     return out
+
+
+# ─────────────────────────────────────────────────────────────────────────
+#  Durate vere
+#  I minuti dichiarati da SC nel campo "duration" sono spesso sbagliati, e non
+#  di poco: misurato il 2026-09-21 -> Love, Death + Robots dava 21 min per ogni
+#  episodio della stagione 1 (in realta' 7-18, "Il dominio dello yogurt" ne dura
+#  7), Chernobyl sbagliava di +20 min, Arcane di -9. Breaking Bad invece era
+#  giusto: non c'e' modo di sapere in anticipo di chi fidarsi.
+#  L'unico dato affidabile e' il flusso stesso. Si misura una volta per episodio
+#  e si tiene in cache su disco per sempre: una durata non cambia mai.
+# ─────────────────────────────────────────────────────────────────────────
+_F_DURATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "durate_cache.json")
+_DURATE = None
+_DURATE_LOCK = threading.RLock()   # RLock: cosi' un futuro annidamento non blocca tutto
+
+
+def _durate_cache():
+    """Il dizionario condiviso delle durate. Il lock non e' pignoleria: la misura gira
+    anche in background, e senza di esso due thread potrebbero caricarlo insieme e
+    ritrovarsi con due dizionari diversi, perdendo le misure l'uno dell'altro."""
+    global _DURATE
+    with _DURATE_LOCK:
+        if _DURATE is None:
+            try:
+                with open(_F_DURATE, encoding="utf-8") as f:
+                    _DURATE = json.load(f)
+            except Exception:
+                _DURATE = {}
+        return _DURATE
+
+
+def durata_episodio(title_id, episode_id):
+    """Durata vera in minuti di un episodio, misurata sul flusso. None se non riesce."""
+    link = m3u8(title_id, episode_id)
+    if not link:
+        return None
+    secondi = vixcloud.durata(link)
+    return int(round(secondi / 60.0)) if secondi else None
+
+
+def durate(title_id, lista_episodi, misura=True, paralleli=6):
+    """{episode_id: minuti} per gli episodi dati.
+
+    misura=False -> restituisce solo quello che e' gia' in cache, senza toccare la
+    rete: serve dove un ritardo darebbe fastidio (es. all'apertura del player).
+    """
+    cache = _durate_cache()
+    fuori, mancanti = {}, []
+    for e in lista_episodi:
+        chiave = "%s:%s" % (title_id, e.get("id"))
+        if chiave in cache:
+            fuori[e.get("id")] = cache[chiave]
+        else:
+            mancanti.append(e)
+    if not (misura and mancanti):
+        return fuori
+    import concurrent.futures as _cf
+    with _cf.ThreadPoolExecutor(max_workers=min(paralleli, len(mancanti))) as ex:
+        misurate = list(ex.map(
+            lambda e: (e.get("id"), durata_episodio(title_id, e.get("id"))), mancanti))
+    with _DURATE_LOCK:
+        for eid, minuti in misurate:
+            if minuti:
+                cache["%s:%s" % (title_id, eid)] = minuti
+                fuori[eid] = minuti
+        try:
+            with open(_F_DURATE, "w", encoding="utf-8") as f:
+                json.dump(cache, f)
+        except Exception:
+            pass
+    return fuori
+
+
+def durate_in_background(title_id, lista_episodi):
+    """Riempie la cache senza far aspettare nessuno: la prossima volta i minuti
+    mostrati saranno quelli giusti."""
+    if not lista_episodi:
+        return
+    threading.Thread(target=durate, args=(title_id, lista_episodi),
+                     kwargs={"paralleli": 4}, daemon=True).start()
 
 
 def m3u8(title_id, episode_id=None):

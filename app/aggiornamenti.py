@@ -69,7 +69,7 @@ _CARTELLE_NO = {"venv", "Download", "python-portable", ".chrome_profile",
                 "__pycache__", ".backup", "TrickFlix.app", ".git"}
 _FILE_NO = {"dati.json", "posizioni.json", "preferenze.json", "vai.json",
             "azione.json", "libreria.json", ".deps_ok", "app_log.txt",
-            "aggiornamento_cache.json"}
+            "aggiornamento_cache.json", "durate_cache.json"}
 _PEZZO = re.compile(r"^[A-Za-z0-9._ +-]+$")
 
 

@@ -1,10 +1,9 @@
 {
- "versione": "3.9.0",
+ "versione": "3.9.1",
  "data": "2026-09-21",
  "note": [
-  "Episodi, prossimo episodio, download e cast dentro al player",
-  "Seconda sorgente automatica per film e serie (VixSrc)",
-  "L'app ora si aggiorna da sola"
+  "Durate degli episodi finalmente giuste: vengono misurate sul video vero invece di fidarsi del sito",
+  "Prima Love Death + Robots dichiarava 21 minuti per ogni episodio, Chernobyl ne sbagliava 20"
  ],
  "file": {
   "TrickFlix.bat": {
@@ -20,8 +19,8 @@
    "dim": 4280
   },
   "app/aggiornamenti.py": {
-   "sha256": "5c815bea0f4b1257342dabf3267c32ef6621bc13ab6ed7d13b89ecdcd10896e3",
-   "dim": 15628
+   "sha256": "d419203ac9cc1a5a658c9b4dc515b1b4f7829071ad0c06d8dd67f6cd775acc10",
+   "dim": 15649
   },
   "app/anilist.py": {
    "sha256": "33b9ac0ee52e848a92bbe60c83d1ae51417287c546d1a4c1918f7f56ddc706c9",
@@ -32,8 +31,8 @@
    "dim": 16576
   },
   "app/app.py": {
-   "sha256": "182ac747cc2a56b8c03bd488278cfff4d29bc142bbada5c52a778db5c7fead7b",
-   "dim": 107031
+   "sha256": "dd464f9b1d47b3999331cb8475c78768518ec59f3229970cb77482a7cb81031a",
+   "dim": 108240
   },
   "app/bridge.py": {
    "sha256": "2772a8262baf9e4c45757148c409968d0e20e6743ee7aa8d42eba59d5b23c55d",
@@ -68,16 +67,16 @@
    "dim": 7636
   },
   "app/streamingcommunity.py": {
-   "sha256": "b1da1d82acf688e0fdd6ed034cef74a01719a117033d05d080a803e680b6449a",
-   "dim": 18238
+   "sha256": "240ef67477e6c0db9c03674e9307a6234d6e0f4265cb8f6b869becf581f234e9",
+   "dim": 21843
   },
   "app/versione.py": {
-   "sha256": "2c834a46c7ba53aadec7e5595f7870857de3fb987f037b95d9db20c9fcfaab9f",
+   "sha256": "81f08dd326a9a123044b5866047766b263a0ee7c940d889b91f32f0d26690297",
    "dim": 376
   },
   "app/vixcloud.py": {
-   "sha256": "2b285dd2a22157dcec81e6078b3eb390a8cce6d5d713f6e68509abb658589468",
-   "dim": 2805
+   "sha256": "07aa8170de042a5a812b5fa91b03afaca6e9969663d24c5683e95a2eccfe9110",
+   "dim": 3861
   },
   "app/vixsrc.py": {
    "sha256": "f14db665bbb10f8826d3bc0d49fadf24090a64fd213a858129605c6a4f9ed78f",

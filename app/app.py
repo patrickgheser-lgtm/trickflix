@@ -1013,13 +1013,22 @@ def _dati_episodi(provider, tid, slug, uid):
             with _cf.ThreadPoolExecutor(max_workers=min(6, len(nums))) as ex:
                 coppie = list(ex.map(lambda n: (n, sc.episodi(tid, slug, n)), nums))
             fuori = []
+            tutti = []
             for n, eps in sorted(coppie, key=lambda c: _num(c[0])):
+                # durate: qui SOLO quelle gia' in cache (misura=False). Misurarle adesso
+                # significherebbe ritardare l'apertura del player di qualche secondo per
+                # ogni stagione. Quella che stai guardando e' gia' stata misurata dalla
+                # scheda del titolo; per le altre parte una misura in background, cosi'
+                # la prossima volta sono giuste anche quelle.
+                vere = sc.durate(tid, eps or [], misura=False)
                 voci = [{"id": str(e["id"]), "num": str(e.get("number") or ""),
                          "nome": e.get("name") or "", "img": e.get("image") or "",
-                         "dur": e.get("duration") or 0,
+                         "dur": vere.get(e.get("id")) or e.get("duration") or 0,
                          "plot": (e.get("plot") or "")[:200]} for e in (eps or [])]
+                tutti.extend(eps or [])
                 if voci:
                     fuori.append({"n": str(n), "eps": voci})
+            sc.durate_in_background(tid, tutti)
             return fuori
         if provider == "au":
             base = au_base()
@@ -1655,7 +1664,19 @@ def _dettaglio_sc(tid, slug):
 
 @st.cache_data(ttl=600, show_spinner=False)
 def _episodi_sc(tid, slug, stag):
-    return sc.episodi(tid, slug, stag)
+    """Episodi della stagione, con i minuti MISURATI sul flusso vero.
+
+    Il campo "duration" di SC e' spesso sbagliato di parecchio (vedi il commento in
+    streamingcommunity.durate): qui si misura davvero. Costa qualche secondo la prima
+    volta che si apre una stagione, poi la cache su disco lo rende gratuito per sempre.
+    Se la misura non riesce resta il valore dichiarato da SC: meglio un numero
+    approssimativo che nessun numero."""
+    eps = sc.episodi(tid, slug, stag) or []
+    vere = sc.durate(tid, eps)
+    for e in eps:
+        if vere.get(e.get("id")):
+            e["duration"] = vere[e["id"]]
+    return eps
 
 
 # ── Rilevamento connessione (modalità offline automatica) ────────────────

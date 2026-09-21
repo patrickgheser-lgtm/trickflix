@@ -6,4 +6,4 @@ Formato: numeri separati da punti (3.9.0). Il confronto è numerico, non alfabet
 quindi 3.10.0 risulta correttamente più recente di 3.9.0.
 """
 
-VERSIONE = "3.9.0"
+VERSIONE = "3.9.1"
