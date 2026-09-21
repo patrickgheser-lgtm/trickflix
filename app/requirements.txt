@@ -1,6 +1,10 @@
 # TrickFlix - dipendenze (leggere)
 # Flusso via API dirette (StreamingCommunity/AnimeUnity) + player Netflix su hls.js.
-streamlit
+# Il minimo NON e' pignoleria: senza, se una dipendenza non ha la ruota per una
+# piattaforma pip torna indietro in SILENZIO fino a una versione che "funziona".
+# Successo davvero il 2026-09-21 sui Mac Intel: installo' streamlit 0.84.1 del 2021,
+# che va in crash con il protobuf moderno. Con un minimo, pip fallisce a voce alta.
+streamlit>=1.50
 requests
 # vixcloud (backend m3u8) è dietro Cloudflare "managed challenge": curl_cffi impersona
 # il fingerprint TLS di Chrome reale e passa la sfida SENZA aprire un browser.

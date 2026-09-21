@@ -1,9 +1,9 @@
 {
- "versione": "3.9.3",
+ "versione": "3.9.4",
  "data": "2026-09-21",
  "note": [
-  "Su macOS i dati (cronologia, download, preferenze) vanno in ~/Library/Application Support, come vuole il sistema: un'app in Applicazioni non deve scrivere dentro di se'",
-  "Su Windows non cambia nulla"
+  "Corretto l'avvio su Mac Intel: pip installava di nascosto una Streamlit del 2021, incompatibile con protobuf",
+  "requirements.txt ora impone una versione minima, cosi' un ripiego silenzioso diventa un errore visibile"
  ],
  "file": {
   "TrickFlix.bat": {
@@ -75,7 +75,7 @@
    "dim": 21768
   },
   "app/versione.py": {
-   "sha256": "e99925036dc597f4a0a2973ed3c8bbbe003d4dffbe609cbdda2a7e3b721de5b9",
+   "sha256": "f23728d8deacd5cb890df113973a1bff8a4ef17b69436e055acaaddaed9e768c",
    "dim": 376
   },
   "app/vixcloud.py": {
@@ -87,8 +87,8 @@
    "dim": 9460
   },
   "app/requirements.txt": {
-   "sha256": "46b7aff28d9431a56bd599f933d1a7ffa34e04a34f811ca0c5bbdfb500f490db",
-   "dim": 671
+   "sha256": "0c6766dbec9fd249c0ff16b6ecc0eadca353336509e7469b3acbdd0aa577d297",
+   "dim": 1007
   },
   "app/GUIDA.md": {
    "sha256": "10c3105bcc401fec337a8e113cfefcc14b137fd176988488617a02b81b00694f",
