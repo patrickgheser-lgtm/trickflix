@@ -52,7 +52,8 @@ _TLD_JUNK = {"html", "htm", "php", "asp", "aspx", "jpg", "jpeg", "png", "gif",
 # "a scadenza" — un dominio SC ruotato di solito continua a funzionare per giorni, quindi l'ultimo
 # noto-funzionante viene sempre RIVALIDATO e, se ancora vivo, usato. Si ri-scopre solo quando è
 # davvero morto. Il TTL serve solo a decidere quando PROVARE a cercarne uno più fresco.
-_CACHE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dominio_sc_cache.json")
+import percorsi
+_CACHE = percorsi.dato("dominio_sc_cache.json")
 _CACHE_TTL = 12 * 3600
 
 _S = None
@@ -175,7 +176,9 @@ def _cache_set(dom):
 def _override_manuale():
     """Dominio SC forzato a mano: se l'auto-risoluzione sbaglia (le guide linkano cloni/domini
     morti), l'utente mette il dominio corrente in app/dominio_sc.txt e vince su tutto."""
-    f = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dominio_sc.txt")
+    f = percorsi.override("dominio_sc.txt")
+    if not f:
+        return None
     try:
         with open(f, encoding="utf-8") as fh:
             d = fh.read().strip()
@@ -427,7 +430,7 @@ def episodi(title_id, slug, stagione):
 #  L'unico dato affidabile e' il flusso stesso. Si misura una volta per episodio
 #  e si tiene in cache su disco per sempre: una durata non cambia mai.
 # ─────────────────────────────────────────────────────────────────────────
-_F_DURATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "durate_cache.json")
+_F_DURATE = percorsi.dato("durate_cache.json")
 _DURATE = None
 _DURATE_LOCK = threading.RLock()   # RLock: cosi' un futuro annidamento non blocca tutto
 

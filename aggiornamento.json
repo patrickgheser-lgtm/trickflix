@@ -1,8 +1,9 @@
 {
- "versione": "3.9.2",
+ "versione": "3.9.3",
  "data": "2026-09-21",
  "note": [
-  "L'avviatore riconosce il Python gia' incluso dall'installer: nessuna attesa al primo avvio"
+  "Su macOS i dati (cronologia, download, preferenze) vanno in ~/Library/Application Support, come vuole il sistema: un'app in Applicazioni non deve scrivere dentro di se'",
+  "Su Windows non cambia nulla"
  ],
  "file": {
   "TrickFlix.bat": {
@@ -18,24 +19,24 @@
    "dim": 4280
   },
   "app/aggiornamenti.py": {
-   "sha256": "d419203ac9cc1a5a658c9b4dc515b1b4f7829071ad0c06d8dd67f6cd775acc10",
-   "dim": 15649
+   "sha256": "d627408c6bded1517dd42a295bf211799754f6457810a8123c8a35909b98dafb",
+   "dim": 15650
   },
   "app/anilist.py": {
    "sha256": "33b9ac0ee52e848a92bbe60c83d1ae51417287c546d1a4c1918f7f56ddc706c9",
    "dim": 3408
   },
   "app/animeunity.py": {
-   "sha256": "e1a23fdd446bf6421295f7f41c081a8e7fb9d8882f59fc7c14e3f923965ec6ad",
-   "dim": 16576
+   "sha256": "60105e0c1439bf2780792bde0564b57c7bf510d5532b0024dee0dffd3900fac7",
+   "dim": 16544
   },
   "app/app.py": {
    "sha256": "dd464f9b1d47b3999331cb8475c78768518ec59f3229970cb77482a7cb81031a",
    "dim": 108240
   },
   "app/bridge.py": {
-   "sha256": "2772a8262baf9e4c45757148c409968d0e20e6743ee7aa8d42eba59d5b23c55d",
-   "dim": 7358
+   "sha256": "d5e83659ea0f2e4b67f675a6a7765a30614cef7438498c477e9d970eef56aba9",
+   "dim": 7369
   },
   "app/browser.py": {
    "sha256": "85c82e2050078d8f319e037f5aa2bfb234b513323145eae2bdd2bc17969fed00",
@@ -46,31 +47,35 @@
    "dim": 4548
   },
   "app/download_manager.py": {
-   "sha256": "3aa9fa79b546c7bbcde2fc56df03948f0b64a2dce6718d00a999de6cf8cea2aa",
-   "dim": 11025
+   "sha256": "f4a8a33face13929a913bf027210601a57597d71eb771e04a6bfbdf9d92010aa",
+   "dim": 11069
   },
   "app/downloader.py": {
    "sha256": "3493ec1b4bd005e8d9c3c0dc6bb91969538485af8f9f8aa5c107cb84cf8a5a00",
    "dim": 15899
   },
   "app/launcher.py": {
-   "sha256": "05b0714ccfb7c7e9e4ded55fb751d55c078623787db7a0275e393d98ff068740",
-   "dim": 6094
+   "sha256": "47511e228872451c5ee263f376dbe262b9e2625627eb63584848245a752df0d6",
+   "dim": 6100
+  },
+  "app/percorsi.py": {
+   "sha256": "1991ad4bea590d8f0d0ea7850683b65f98c1f04a13fab184a78a7bf5052e193a",
+   "dim": 2330
   },
   "app/risolutore_siti.py": {
-   "sha256": "c5e93228c8c74e5197460f92c352e085aeab54e78de35c08d5fc771164276110",
-   "dim": 4299
+   "sha256": "edaad10bc7b92d35275adcd4f6def7649d5d016d7af668ae6eef9659abe1d1c0",
+   "dim": 4272
   },
   "app/storage.py": {
-   "sha256": "79d875a0f3d937924d48d001998d658db37c838228472cd1f7ea49144d7cc5bd",
-   "dim": 7636
+   "sha256": "4360ff60118e582e504e672cc3e171f174a3975f2948deb86d2c6ec533619936",
+   "dim": 7684
   },
   "app/streamingcommunity.py": {
-   "sha256": "240ef67477e6c0db9c03674e9307a6234d6e0f4265cb8f6b869becf581f234e9",
-   "dim": 21843
+   "sha256": "b60fc9c75bfc1ff354314e53be382460583d5636f18c8b3dd9b092ad837c23da",
+   "dim": 21768
   },
   "app/versione.py": {
-   "sha256": "0b25cb16707eca4cb20cf26d6c23041d8ddc924f5a9a0ecd2805c71cd86d67a8",
+   "sha256": "e99925036dc597f4a0a2973ed3c8bbbe003d4dffbe609cbdda2a7e3b721de5b9",
    "dim": 376
   },
   "app/vixcloud.py": {
@@ -78,8 +83,8 @@
    "dim": 3861
   },
   "app/vixsrc.py": {
-   "sha256": "f14db665bbb10f8826d3bc0d49fadf24090a64fd213a858129605c6a4f9ed78f",
-   "dim": 9492
+   "sha256": "81d18d97e2c1b2d6194907f595a7c13f752adc5f250122c30ed5fb5042f7283b",
+   "dim": 9460
   },
   "app/requirements.txt": {
    "sha256": "46b7aff28d9431a56bd599f933d1a7ffa34e04a34f811ca0c5bbdfb500f490db",

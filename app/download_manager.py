@@ -19,7 +19,8 @@ import threading
 
 import downloader as dl
 
-_DIR = os.path.dirname(os.path.abspath(__file__))
+import percorsi
+_DIR = percorsi.DATI          # i video scaricati NON stanno dentro il bundle
 DOWNLOAD_DIR = os.path.join(_DIR, "Download")
 LIB = os.path.join(DOWNLOAD_DIR, "libreria.json")
 

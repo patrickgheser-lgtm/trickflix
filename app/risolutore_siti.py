@@ -13,7 +13,8 @@ import requests
 # del cold start. I domini cambiano di rado -> li teniamo in cache 6h, così all'apertura
 # dell'app sono istantanei. (Se un dominio cambia, al massimo dopo 6h si ri-risolve; in caso
 # di sito irraggiungibile i chiamanti gestiscono già il fallback.)
-_CACHE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "domini_cache.json")
+import percorsi
+_CACHE_FILE = percorsi.dato("domini_cache.json")
 _CACHE_TTL = 6 * 3600
 
 

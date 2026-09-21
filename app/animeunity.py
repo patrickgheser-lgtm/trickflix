@@ -42,7 +42,8 @@ GUIDE = [
 _PAT_DOM = r'(?:https?://)?(?:www\.)?(animeunity[a-z0-9\-]*\.[a-z]{2,})'
 _TLD_JUNK = {"png", "jpg", "jpeg", "gif", "webp", "svg", "css", "js", "html", "htm",
              "php", "ico", "woff", "woff2", "mp4", "json", "xml"}
-_CACHE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dominio_au_cache.json")
+import percorsi
+_CACHE = percorsi.dato("dominio_au_cache.json")
 _CACHE_TTL = 12 * 3600
 _DOM_BASE = None    # base completa GIA' normalizzata post-redirect (es. https://www.animeunity.so)
 
@@ -79,7 +80,9 @@ def _estrai_domini(text):
 
 def _override_manuale():
     """Dominio AU forzato a mano in app/dominio_au.txt (vince su tutto)."""
-    f = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dominio_au.txt")
+    f = percorsi.override("dominio_au.txt")
+    if not f:
+        return None
     try:
         with open(f, encoding="utf-8") as fh:
             d = fh.read().strip()

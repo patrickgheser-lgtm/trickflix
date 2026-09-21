@@ -16,7 +16,8 @@ import subprocess
 BASE = os.path.dirname(os.path.abspath(__file__))
 PORTA_APP = 8501
 PORTA_PONTE = 8765
-LOG = os.path.join(BASE, "app_log.txt")
+import percorsi
+LOG = percorsi.dato("app_log.txt")
 
 # Evita che i sottoprocessi facciano lampeggiare finestre-console (avvio windowless)
 _NO_WINDOW = subprocess.CREATE_NO_WINDOW if sys.platform.startswith("win") else 0
@@ -79,7 +80,7 @@ def assicura_dipendenze():
             firma = hashlib.sha1(f.read()).hexdigest()
     except Exception:
         return
-    marker = os.path.join(BASE, ".deps_ok")
+    marker = percorsi.dato(".deps_ok")
     try:
         with open(marker, encoding="utf-8") as f:
             if f.read().strip() == firma:

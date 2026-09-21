@@ -57,7 +57,8 @@ _TLD_JUNK = {"png", "jpg", "jpeg", "gif", "webp", "svg", "css", "js", "html", "h
 # id TMDB usato per validare un dominio candidato: 603 = Matrix, c'e' di sicuro.
 _TMDB_PROVA = 603
 
-_CACHE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dominio_vixsrc_cache.json")
+import percorsi
+_CACHE = percorsi.dato("dominio_vixsrc_cache.json")
 _CACHE_TTL = 12 * 3600
 _BASE = None
 
@@ -98,7 +99,9 @@ def _estrai_domini(text):
 
 
 def _override_manuale():
-    f = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dominio_vixsrc.txt")
+    f = percorsi.override("dominio_vixsrc.txt")
+    if not f:
+        return None
     try:
         with open(f, encoding="utf-8") as fh:
             d = fh.read().strip()

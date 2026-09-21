@@ -2,7 +2,8 @@ import json
 import os
 import time
 
-_DIR = os.path.dirname(os.path.abspath(__file__))
+import percorsi
+_DIR = percorsi.DATI          # su macOS: ~/Library/Application Support/TrickFlix
 FILE_DATI = os.path.join(_DIR, "dati.json")
 FILE_POS = os.path.join(_DIR, "posizioni.json")   # minuto raggiunto (continua a guardare)
 FILE_PICK = os.path.join(_DIR, "pick.json")        # ultima card cliccata nella home Netflix

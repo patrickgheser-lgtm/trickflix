@@ -50,8 +50,9 @@ FONTI = [
 ]
 
 MANIFESTO = "aggiornamento.json"
-CACHE = os.path.join(BASE, "aggiornamento_cache.json")
-BACKUP = os.path.join(BASE, ".backup")
+import percorsi
+CACHE = percorsi.dato("aggiornamento_cache.json")
+BACKUP = percorsi.dato(".backup")
 OGNI = 24 * 3600          # frequenza del controllo automatico
 TIMEOUT = 20
 
@@ -345,7 +346,7 @@ def applica(manifesto, progresso=None):
         #    (assicura_dipendenze() confronta lo sha1 di requirements.txt con .deps_ok)
         if any(p.endswith("requirements.txt") for p, _ in lista):
             try:
-                os.remove(os.path.join(BASE, ".deps_ok"))
+                os.remove(percorsi.dato(".deps_ok"))
             except Exception:
                 pass
 

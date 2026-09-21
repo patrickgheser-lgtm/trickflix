@@ -20,7 +20,8 @@ from urllib.parse import urlparse, unquote, parse_qs
 import storage
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-DOWNLOAD_DIR = os.path.join(BASE, "Download")
+import percorsi
+DOWNLOAD_DIR = percorsi.dato("Download")
 PORT = 8765
 
 
