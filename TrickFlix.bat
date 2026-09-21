@@ -13,15 +13,25 @@ echo.
 
 set "VENVPY=venv\Scripts\python.exe"
 set "PORT_PY=python-portable\python\python.exe"
+set "RUNPY="
 
 REM ============================================================
-REM  1) L'ambiente esiste gia' ed e' sano?  -> avvia e basta
+REM  1) C'e' gia' un Python pronto all'uso? -> avvia e basta.
+REM     Si prova PRIMA il runtime incluso dall'installer (python-portable
+REM     con le librerie gia' dentro: niente download, niente pip, parte
+REM     subito), POI l'ambiente creato da un avvio precedente.
+REM     "Pronto" non vuol dire "esiste": vuol dire che importa davvero
+REM     streamlit. Cosi' un ambiente rotto o copiato da un altro PC viene
+REM     scartato invece di far fallire l'avvio.
 REM ============================================================
-if not exist "%VENVPY%" goto trova_python
-"%VENVPY%" -c "import streamlit" >nul 2>&1
-if not errorlevel 1 goto avvia
-echo Ambiente non valido (o incompleto): lo ricreo da zero...
-rmdir /s /q venv 2>nul
+call :usa_se_buono "%PORT_PY%"
+call :usa_se_buono "%VENVPY%"
+if defined RUNPY goto avvia
+
+if exist "%VENVPY%" (
+  echo Ambiente non valido ^(o incompleto^): lo ricreo da zero...
+  rmdir /s /q venv 2>nul
+)
 
 REM ============================================================
 REM  2) Cerca un Python di sistema utilizzabile.
@@ -72,10 +82,11 @@ REM ============================================================
 :avvia
 echo.
 echo Avvio TrickFlix... l'app si apre tra pochi secondi.
-if exist "venv\Scripts\pythonw.exe" (
-  start "" "venv\Scripts\pythonw.exe" launcher.py
+set "RUNW=%RUNPY:python.exe=pythonw.exe%"
+if exist "%RUNW%" (
+  start "" "%RUNW%" launcher.py
 ) else (
-  start "" "%VENVPY%" launcher.py
+  start "" "%RUNPY%" launcher.py
 )
 REM  piccola pausa (ping invece di timeout: funziona sempre, anche senza console)
 ping -n 4 127.0.0.1 >nul 2>&1
@@ -84,6 +95,16 @@ exit /b 0
 REM ============================================================
 REM  Subroutine
 REM ============================================================
+
+REM  usa_se_buono "<python>" -> se esiste E importa streamlit, diventa RUNPY.
+REM  Il primo che passa vince: le chiamate successive non fanno nulla.
+:usa_se_buono
+if defined RUNPY exit /b 0
+if not exist "%~1" exit /b 0
+"%~1" -c "import streamlit" >nul 2>&1
+if errorlevel 1 exit /b 0
+set "RUNPY=%~1"
+exit /b 0
 
 REM  prova_py "<comando python>" -> se e' un Python 3 funzionante, imposta PY
 :prova_py
@@ -112,6 +133,7 @@ REM  verifica VERA: i pacchetti si importano davvero?
 if errorlevel 1 exit /b 1
 REM  segna i requisiti come allineati (stesso marker usato da launcher.py)
 "%VENVPY%" -c "import hashlib;open('.deps_ok','w').write(hashlib.sha1(open('requirements.txt','rb').read()).hexdigest())" >nul 2>&1
+set "RUNPY=%VENVPY%"
 exit /b 0
 
 REM ============================================================

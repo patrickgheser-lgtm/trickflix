@@ -1,14 +1,13 @@
 {
- "versione": "3.9.1",
+ "versione": "3.9.2",
  "data": "2026-09-21",
  "note": [
-  "Durate degli episodi finalmente giuste: vengono misurate sul video vero invece di fidarsi del sito",
-  "Prima Love Death + Robots dichiarava 21 minuti per ogni episodio, Chernobyl ne sbagliava 20"
+  "L'avviatore riconosce il Python gia' incluso dall'installer: nessuna attesa al primo avvio"
  ],
  "file": {
   "TrickFlix.bat": {
-   "sha256": "f6321eb86b3560c7918d92c05d9a531e51e44da9ae6feb268cfadfd9fceba526",
-   "dim": 5248
+   "sha256": "1f70c89272c4bce9cc8431651b3afe25bfb5be00c4f15c129f1fdd0b2bf75eac",
+   "dim": 6004
   },
   "TrickFlix.command": {
    "sha256": "e5817bc6e686b6b61fbea2dddf1b66588ffed93b8fac34849a4defaf7d773ebf",
@@ -71,7 +70,7 @@
    "dim": 21843
   },
   "app/versione.py": {
-   "sha256": "81f08dd326a9a123044b5866047766b263a0ee7c940d889b91f32f0d26690297",
+   "sha256": "0b25cb16707eca4cb20cf26d6c23041d8ddc924f5a9a0ecd2805c71cd86d67a8",
    "dim": 376
   },
   "app/vixcloud.py": {
